@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -38,6 +39,10 @@ func readCSV(filename string) ([]string, []string, error) {
 	return quest, sol, nil
 }
 
+func sanitize(s string) string {
+	return strings.TrimSpace(strings.ToLower(s))
+}
+
 func runGame(quest []string, sol []string, maxTime int) int {
 	var (
 		a     string
@@ -50,7 +55,7 @@ func runGame(quest []string, sol []string, maxTime int) int {
 		for i, v := range quest {
 			fmt.Printf("%s? ", v)
 			fmt.Scan(&a)
-			if a == sol[i] {
+			if sanitize(a) == sanitize(sol[i]) {
 				score++
 			}
 		}
